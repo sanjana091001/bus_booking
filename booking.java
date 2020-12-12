@@ -2,12 +2,17 @@ package bus_booking;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
 class booking implements bus_ticket_booking{
+	private Connection connect = null;
+    private Statement statement = null;
+    private PreparedStatement preparedStatement = null;
+    private ResultSet resultSet = null;
 	Connection c = null;
 	Statement stmt = null;
 	String boarding;
@@ -24,17 +29,24 @@ class booking implements bus_ticket_booking{
 		void addBooking(int pass_no,bus bus1  )
 		{
 			try
-			{
-				Class.forName("org.postgresql.Driver");
-				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking", "postgres", "postgres");
-				c.setAutoCommit(false);
-				stmt = c.createStatement();
-				String sql = "UPDATE bus SET no_of_seats=no_of_seats-1 WHERE bus_id="+bus1.bus_id;
-				stmt.executeUpdate(sql);
-				c.commit();
-				System.out.println("Booked Succesfully");
-				stmt.close();
-				//ticket number not assigned
+			{// This will load the MySQL driver, each DB has its own driver
+	        	Class.forName("org.postgresql.Driver");
+	            // Setup the connection with the DB
+	        	connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking",
+	                    "postgres", "postgres");
+	            // Statements allow to issue SQL queries to the database
+	            statement = connect.createStatement();
+            	 preparedStatement=connect.prepareStatement("update bus set no_of_seats=no_of_seats-? where bus_id=?");
+            	 int passno=pass_no;
+ 	            preparedStatement.setInt(1, passno);
+ 	            String busid=bus1.bus_id;
+ 	            preparedStatement.setString(2, busid);
+ 	           
+ 	            preparedStatement.executeUpdate();
+ 	           preparedStatement = connect
+	                    .prepareStatement("SELECT * from bus");
+	            resultSet = preparedStatement.executeQuery();
+            	System.out.print("\nUpdated.");
 			}
 			catch (Exception e)
 			{
@@ -47,19 +59,28 @@ class booking implements bus_ticket_booking{
 		{
 			//print amount			
 		}
-		public void cancellation(int ticket_no, bus bus1)
+		 public void cancellation(int pass_no, bus bus1)
 		{
 			try
-			{//after assigning ticket number
-				Class.forName("org.postgresql.Driver");
-				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking", "postgres", "postgres");
-				c.setAutoCommit(false);
-				stmt = c.createStatement();
-				String sql = "UPDATE bus SET no_of_seats=no_of_seats+1 WHERE bus_id="+ bus1.bus_id+";";
-				stmt.executeUpdate(sql);
-				c.commit();
-				System.out.println("Booked Successfully");
-				stmt.close();
+			{
+				// This will load the MySQL driver, each DB has its own driver
+	        	Class.forName("org.postgresql.Driver");
+	            // Setup the connection with the DB
+	        	connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking",
+	                    "postgres", "postgres");
+	            // Statements allow to issue SQL queries to the database
+	            statement = connect.createStatement();
+            	 preparedStatement=connect.prepareStatement("update bus set no_of_seats=no_of_seats+? where bus_id=?");
+            	 int passno=pass_no;
+ 	            preparedStatement.setInt(1, passno);
+ 	            String busid=bus1.bus_id;
+ 	            preparedStatement.setString(2, busid);
+ 	           
+ 	            preparedStatement.executeUpdate();
+ 	           preparedStatement = connect
+	                    .prepareStatement("SELECT * from bus");
+	            resultSet = preparedStatement.executeQuery();
+            	System.out.print("\nUpdated.");
 			}
 			catch (Exception e)
 			{
@@ -68,4 +89,34 @@ class booking implements bus_ticket_booking{
 				System.exit(0);
 			}
 		}
+		 private void writeMetaData(ResultSet resultSet) throws SQLException {
+		        //  Now get some metadata from the database
+		        // Result set get the result of the SQL query
+
+		        System.out.println("The columns in the table are: ");
+
+		        System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
+		        for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
+		            System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
+		        }
+		    }
+
+		    // You need to close the resultSet
+		    private void close() {
+		        try {
+		            if (resultSet != null) {
+		                resultSet.close();
+		            }
+
+		            if (statement != null) {
+		                statement.close();
+		            }
+
+		            if (connect != null) {
+		                connect.close();
+		            }
+		        } catch (Exception e) {
+
+		        }
+		    }
 };

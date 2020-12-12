@@ -1,6 +1,8 @@
 package bus_booking;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +10,12 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class bus{
+	private Connection connect = null;
+    private Statement statement = null;
+    private PreparedStatement preparedStatement = null;
+    private ResultSet resultSet = null;
 	Connection c = null;
 	Statement stmt = null;
-	int bus_no;
 	int no_of_seats;
 	String bus_type;
 	String bus_owner;
@@ -18,9 +23,8 @@ public class bus{
 	String bus_conductor;
 	String bus_id;
 	int route_no;
-	bus(int bus_no, int no_of_seats,String bus_type,String bus_owner,String bus_driver,String bus_conductor,String bus_id, int route_no)
+	bus(int no_of_seats,String bus_type,String bus_owner,String bus_driver,String bus_conductor,String bus_id, int route_no)
 	{
-		this.bus_no=bus_no;
 		this.no_of_seats=no_of_seats;
 		this.bus_type=bus_type;
 		this.bus_owner=bus_owner;
@@ -34,14 +38,32 @@ public class bus{
 	{
 		try 
 		{
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking", "postgres", "postgres");
-		c.setAutoCommit(false);
-		stmt = c.createStatement();
-		String sql = "INSERT INTO bus VALUES("+bus_conductor+","+route_no+","+no_of_seats+","+bus_driver+","+bus_owner+","+bus_id+");";
-		stmt.executeUpdate(sql);
-		System.out.println("Bus Added successfully");
-		stmt.close();
+			
+			// This will load the MySQL driver, each DB has its own driver
+        	Class.forName("org.postgresql.Driver");
+            // Setup the connection with the DB
+        	connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking",
+                    "postgres", "postgres");
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+         // PreparedStatements can use variables and are more efficient
+            preparedStatement = connect
+                    .prepareStatement("insert into bus values (?, ?,?,?,?,?)");
+            
+            
+            // Parameters start with 1
+            preparedStatement.setString(1, bus_conductor);
+            preparedStatement.setInt(2, route_no);
+            preparedStatement.setInt(3, no_of_seats);
+            preparedStatement.setString(4, bus_driver);
+            preparedStatement.setString(5, bus_owner);
+            preparedStatement.setString(6, bus_id);
+              
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connect
+                    .prepareStatement("SELECT * from bus");
+            resultSet = preparedStatement.executeQuery();
 		}
 		catch(Exception e)
 		{
