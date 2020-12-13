@@ -17,6 +17,12 @@ public class bus_stand {
 	int terminal_no;
 	String location;
 	String type_of_stand;
+	bus_stand(int term_no, String loc, String t_o_s)
+	{
+		terminal_no=term_no;
+		location=loc;
+		type_of_stand=t_o_s;
+	}
 	void showbusstand()
 	{
 		

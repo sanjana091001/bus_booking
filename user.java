@@ -24,7 +24,7 @@ public class user {
 		this.pass=pass;
 	}
 	public
-		void addDetails()
+		void modifyDetails(String new_pass)
 		{
 			try
 			{
@@ -38,20 +38,20 @@ public class user {
 	            statement = connect.createStatement();
 	         // PreparedStatements can use variables and are more efficient
 	            preparedStatement = connect
-	                    .prepareStatement("update user_table set passvalues (?, ?)");
+	                    .prepareStatement("update user_table set password = ? where username=?");
 	            
 	            
 	            // Parameters start with 1
-	            String id=userid;
-	            preparedStatement.setString(1, id);
 	            String pass1=pass;
-	            preparedStatement.setString(2, pass1);
+	            preparedStatement.setString(1, pass1);
+	            preparedStatement.setString(2, userid);
 	           
 	            preparedStatement.executeUpdate();
 
 	            preparedStatement = connect
 	                    .prepareStatement("SELECT * from user_table");
 	            resultSet = preparedStatement.executeQuery();
+	            System.out.print("User password changed");
 			}
 			catch (Exception e)
 			{
@@ -60,9 +60,10 @@ public class user {
 				System.exit(0);
 			}
 		}
-		void modifyDetails(String new_pass)
+		void addDetails()
 		{
-{
+			try
+			{
 				
 	        	Class.forName("org.postgresql.Driver");
 	            // Setup the connection with the DB
@@ -86,6 +87,7 @@ public class user {
 	            preparedStatement = connect
 	                    .prepareStatement("SELECT * from user_table");
 	            resultSet = preparedStatement.executeQuery();
+	            System.out.print("New user added");
 			}
 			catch (Exception e)
 			{

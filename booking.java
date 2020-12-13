@@ -26,7 +26,7 @@ class booking implements bus_ticket_booking{
 		boarding=boa;
 		destination=des;
 	}
-		void addBooking(int pass_no,bus bus1  )
+		void addBooking(int pass_no,String busid  )
 		{
 			try
 			{// This will load the MySQL driver, each DB has its own driver
@@ -39,8 +39,8 @@ class booking implements bus_ticket_booking{
             	 preparedStatement=connect.prepareStatement("update bus set no_of_seats=no_of_seats-? where bus_id=?");
             	 int passno=pass_no;
  	            preparedStatement.setInt(1, passno);
- 	            String busid=bus1.bus_id;
- 	            preparedStatement.setString(2, busid);
+ 	            String busid1=busid;
+ 	            preparedStatement.setString(2, busid1);
  	           
  	            preparedStatement.executeUpdate();
  	           preparedStatement = connect
@@ -55,11 +55,7 @@ class booking implements bus_ticket_booking{
 				System.exit(0);
 			}
 		}
-		public void payment()
-		{
-			//print amount			
-		}
-		 public void cancellation(int pass_no, bus bus1)
+		 public void cancellation(int pass_no, String busid1)
 		{
 			try
 			{
@@ -73,7 +69,7 @@ class booking implements bus_ticket_booking{
             	 preparedStatement=connect.prepareStatement("update bus set no_of_seats=no_of_seats+? where bus_id=?");
             	 int passno=pass_no;
  	            preparedStatement.setInt(1, passno);
- 	            String busid=bus1.bus_id;
+ 	            String busid=busid1;
  	            preparedStatement.setString(2, busid);
  	           
  	            preparedStatement.executeUpdate();

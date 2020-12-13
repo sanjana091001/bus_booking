@@ -1,10 +1,12 @@
 package bus_booking;
 
-public class interface_driver {
+import java.awt.*;
+
+public class interface_driver  {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		interfacedes b1=new interfacedes();
+		interfacedes1 b1=new interfacedes1();
 	}
 
 }

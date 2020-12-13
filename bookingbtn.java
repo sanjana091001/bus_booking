@@ -12,59 +12,52 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class bookingbtn extends JFrame implements ActionListener {
-	JButton addBtn, modifyBtn;
+	JButton addbookingBtn, cancelbookingBtn, exitBtn;
 	JLabel desc;
 	JTextField n;
 	bookingbtn()
 	{
-		setTitle("Booking");
+		setTitle("Booking/Cancel");
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.CYAN);
 		getContentPane().setForeground(Color.WHITE);
 		getContentPane().setLayout(new FlowLayout());
 		
-		JLabel label = new JLabel("Booking");
+		JLabel label = new JLabel("Booking/Cancel");
 		label.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
 		label.setForeground(Color.BLACK);
 		getContentPane().add(label);
 		setBounds(400, 200, 400, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		desc=new JLabel("User id");
-		n=new JTextField("User1", 5);
-		JButton addBtn = new JButton("Add new user");
-		JButton modifyBtn=new JButton("Modify details");
-		addBtn.addActionListener(this);
-		modifyBtn.addActionListener(this);
-		add(addBtn);
-		add(modifyBtn);
+
+		addbookingBtn = new JButton("Book new ticket");
+		cancelbookingBtn=new JButton("Cancel ticket");
+		exitBtn=new JButton("Exit");
+		addbookingBtn.addActionListener(this);
+		cancelbookingBtn.addActionListener(this);
+		exitBtn.addActionListener(this);
+		add(addbookingBtn);
+		add(cancelbookingBtn);
+		add(exitBtn);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent ae)
 	{
-		user obj=new user("user4", "pass4");
-		if(ae.getSource() == addBtn)
+		if(ae.getSource() == addbookingBtn)
 		{
-			try
-			{
-				obj.addDetails();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
+			booking obj1=new booking(2020,"ekm", "tvm");
+			obj1.addBooking(5, "BUS3");
 			repaint();
 		}
-		else if(ae.getSource()==modifyBtn)
+		else if(ae.getSource()==cancelbookingBtn)
 		{
-			try
-			{
-				obj.modifyDetails("newPass4");
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
+			booking obj1=new booking(2020,"ekm", "tvm");
+			obj1.cancellation(10, "BUS3");
+			repaint();
+		}
+		else if(ae.getSource()==exitBtn)
+		{
+			Runtime.getRuntime().exit(1);
 			repaint();
 		}
 	}

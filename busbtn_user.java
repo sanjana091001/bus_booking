@@ -11,60 +11,36 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class exitbtn extends JFrame implements ActionListener{
-	JButton addBtn, modifyBtn;
+public class busbtn_user extends JFrame implements ActionListener{
+	JButton searchBtn;
 	JLabel desc;
 	JTextField n;
-	exitbtn()
+	busbtn_user()
 	{
-		setTitle("Booking");
+		setTitle("Bus Details");
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.CYAN);
 		getContentPane().setForeground(Color.WHITE);
 		getContentPane().setLayout(new FlowLayout());
 		
-		JLabel label = new JLabel("Booking");
+		JLabel label = new JLabel("Bus Details");
 		label.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
 		label.setForeground(Color.BLACK);
 		getContentPane().add(label);
 		setBounds(400, 200, 400, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		desc=new JLabel("User id");
-		n=new JTextField("User1", 5);
-		JButton addBtn = new JButton("Add new user");
-		JButton modifyBtn=new JButton("Modify details");
-		addBtn.addActionListener(this);
-		modifyBtn.addActionListener(this);
-		add(addBtn);
-		add(modifyBtn);
+		searchBtn=new JButton("Search Bus");
+		searchBtn.addActionListener(this);
+		add(searchBtn);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent ae)
 	{
-		user obj=new user("user4", "pass4");
-		if(ae.getSource() == addBtn)
+		if(ae.getSource() == searchBtn)
 		{
-			try
-			{
-				obj.addDetails();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			repaint();
-		}
-		else if(ae.getSource()==modifyBtn)
-		{
-			try
-			{
-				obj.modifyDetails("newPass4");
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
+			bus obj1=new bus();
+			obj1.searchBus("BUS3");
 			repaint();
 		}
 	}
