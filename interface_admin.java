@@ -14,36 +14,29 @@ public class interface_admin extends JFrame implements ActionListener{
 	JButton busBtn,adminBtn,exitBtn;
 	interface_admin(){
 		setTitle("Admin");
-		getContentPane().setBackground(Color.white);
+		getContentPane().setBackground(Color.ORANGE);
 		setBackground(Color.CYAN);
-		getContentPane().setForeground(Color.white);
+		getContentPane().setForeground(Color.WHITE);
 		getContentPane().setLayout(new FlowLayout());
 		
 		JLabel label = new JLabel("Admin");
-		label.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
-		label.setForeground(Color.BLACK);
+		label.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		label.setForeground(Color.BLUE);
 		getContentPane().add(label);
-		setBounds(400, 200, 400, 400);
+		setBounds(600, 200, 600, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		adminBtn = new JButton("Bus Details");
-		busBtn = new JButton("Add Admin/change password");
+		busBtn = new JButton("Bus");
 		exitBtn = new JButton("Exit");
-		adminBtn.addActionListener(this);
 		busBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
-		add(adminBtn);
 		add(busBtn);
 		add(exitBtn);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == busBtn) {
-			 new busbtn();
-	         repaint();
-	      } 
-		else if (ae.getSource() == adminBtn) {
-			new userbtn();
+			 new busbtn_admin();
 	         repaint();
 	      } 
 		else if (ae.getSource() == exitBtn) {

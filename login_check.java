@@ -97,21 +97,19 @@ public class login_check extends JFrame {
                 String userName = textField.getText();
                 String password = passwordField.getText();
                 try {
-                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bus_ticket_booking",
-                        "root", "root");
+                    Connection connection = (Connection) DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking",
+    	                    "postgres", "postgres");
 
                     PreparedStatement st = (PreparedStatement) connection
-                        .prepareStatement("Select name, password from student where name=? and password=?");
+                        .prepareStatement("Select username, password from user_table where username=? and password=?");
 
                     st.setString(1, userName);
                     st.setString(2, password);
                     ResultSet rs = st.executeQuery();
                     if (rs.next()) {
                         dispose();
-                        UserHome ah = new UserHome(userName);
-                        ah.setTitle("Welcome");
-                        ah.setVisible(true);
                         JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
+                        interfacedes1 ob=new interfacedes1();
                     } else {
                         JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
                     }

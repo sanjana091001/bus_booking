@@ -62,6 +62,8 @@ public class bus{
             preparedStatement = connect
                     .prepareStatement("SELECT * from bus");
             resultSet = preparedStatement.executeQuery(); 
+            System.out.print("New Bus added");
+            
             
 		}
 		catch(Exception e)
@@ -107,15 +109,18 @@ public class bus{
 	{
 		try {
 			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking", "postgres", "postgres");
-		c.setAutoCommit(false);
-		stmt = c.createStatement();
-		String sql = "DELETE from bus where bus_id = "+bus_id+";";
-		stmt.executeUpdate(sql);
-		c.commit();
-		System.out.println("Deleted successfully");
-		stmt.close();
-		}
+            // Setup the connection with the DB
+        	connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bus_ticket_booking",
+                    "postgres", "postgres");
+        	statement = connect.createStatement();
+        	preparedStatement = connect
+                    .prepareStatement( ("DELETE from bus where bus_id = ? "));
+            preparedStatement.setString(1, bus_id);
+            System.out.println("Deleted successfully");
+            preparedStatement.executeQuery();
+            
+
+				}
 		catch (Exception e)
 		{
 			e.printStackTrace();

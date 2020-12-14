@@ -18,16 +18,16 @@ public class bookingbtn extends JFrame implements ActionListener {
 	bookingbtn()
 	{
 		setTitle("Booking/Cancel");
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.ORANGE);
 		setBackground(Color.CYAN);
 		getContentPane().setForeground(Color.WHITE);
 		getContentPane().setLayout(new FlowLayout());
 		
 		JLabel label = new JLabel("Booking/Cancel");
-		label.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
-		label.setForeground(Color.BLACK);
+		label.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		label.setForeground(Color.BLUE);
 		getContentPane().add(label);
-		setBounds(400, 200, 400, 400);
+		setBounds(600, 200, 600, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		addbookingBtn = new JButton("Book new ticket");

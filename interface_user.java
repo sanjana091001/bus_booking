@@ -14,16 +14,16 @@ public class interface_user extends JFrame implements ActionListener{
 	JButton userbtn,bookingbtn,busbtn,bus_standbtn,exitbtn;
 	interface_user(){
 		setTitle("USER");
-		getContentPane().setBackground(Color.white);
+		getContentPane().setBackground(Color.ORANGE);
 		setBackground(Color.CYAN);
-		getContentPane().setForeground(Color.white);
+		getContentPane().setForeground(Color.WHITE);
 		getContentPane().setLayout(new FlowLayout());
 		
-		JLabel label = new JLabel("Bus Booking System");
-		label.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
-		label.setForeground(Color.BLACK);
+		JLabel label = new JLabel("User");
+		label.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		label.setForeground(Color.BLUE);
 		getContentPane().add(label);
-		setBounds(400, 200, 400, 400);
+		setBounds(600, 200, 600, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		userbtn = new JButton("Add user/change password");
