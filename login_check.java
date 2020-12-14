@@ -31,20 +31,7 @@ public class login_check extends JFrame {
 
     /**
      * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    login_check frame = new login_check();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
+     *
     /**
      * Create the frame.
      */
@@ -117,12 +104,15 @@ public class login_check extends JFrame {
                     sqlException.printStackTrace();
                 }
             }
+            
         });
+        
 
         contentPane.add(btnNewButton);
 
         label = new JLabel("");
         label.setBounds(0, 0, 1008, 562);
         contentPane.add(label);
+        setVisible(true);
     }
 }

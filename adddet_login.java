@@ -1,5 +1,4 @@
 package bus_booking;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,13 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-public class add_details extends JFrame {
+public class adddet_login extends JFrame {
 	private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JButton btnNewButton;
-    String bus_cond, bus_driv,bus_own, bus_id;
-    int route=10,nos;
-    public add_details() {
+    String u_name, pass;
+    public adddet_login() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(450, 190, 1024, 800);
     setResizable(false);
@@ -30,7 +28,7 @@ public class add_details extends JFrame {
     setContentPane(contentPane);
     contentPane.setLayout(null);
     
-    JLabel lblUsername = new JLabel("Bus Conductor: ");
+    JLabel lblUsername = new JLabel("Name: ");
     lblUsername.setBackground(Color.BLACK);
     lblUsername.setForeground(Color.BLACK);
     lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -43,7 +41,7 @@ public class add_details extends JFrame {
     contentPane.add(textField);
     textField.setColumns(10);
     
-    JLabel lblUsername2 = new JLabel("Bus ID : ");
+    JLabel lblUsername2 = new JLabel("Mobile: ");
     lblUsername2.setBackground(Color.BLACK);
     lblUsername2.setForeground(Color.BLACK);
     lblUsername2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -56,7 +54,7 @@ public class add_details extends JFrame {
     contentPane.add(textField2);
     textField2.setColumns(10);
     
-    JLabel lblUsername3 = new JLabel("Number of seats : ");
+    JLabel lblUsername3 = new JLabel("Age: ");
     lblUsername3.setBackground(Color.BLACK);
     lblUsername3.setForeground(Color.BLACK);
     lblUsername3.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -69,7 +67,7 @@ public class add_details extends JFrame {
     contentPane.add(textField3);
     textField3.setColumns(10);
     
-    JLabel lblUsername4 = new JLabel("Bus Driver : ");
+    JLabel lblUsername4 = new JLabel("Username :");
     lblUsername4.setBackground(Color.BLACK);
     lblUsername4.setForeground(Color.BLACK);
     lblUsername4.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -82,7 +80,7 @@ public class add_details extends JFrame {
     contentPane.add(textField4);
     textField4.setColumns(10);
     
-    JLabel lblUsername5 = new JLabel("Bus Owner : ");
+    JLabel lblUsername5 = new JLabel("Password: ");
     lblUsername5.setBackground(Color.BLACK);
     lblUsername5.setForeground(Color.BLACK);
     lblUsername5.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -94,7 +92,6 @@ public class add_details extends JFrame {
     textField5.setBounds(481, 512, 381, 68);
     contentPane.add(textField5);
     textField5.setColumns(10);
- 
     
     btnNewButton = new JButton("Submit");
     btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -104,14 +101,12 @@ public class add_details extends JFrame {
     btnNewButton.addActionListener(new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
-        	bus_cond=textField.getText();
-        	nos = Integer.parseInt(textField3.getText());
-        	bus_driv=textField4.getText();
-        	bus_own=textField5.getText();
-        	bus_id=textField2.getText();
-        	bus obj1=new bus();
-        	obj1.addBus(nos, bus_own, bus_driv, bus_cond, bus_id, route);
-        	JOptionPane.showMessageDialog(btnNewButton, "New bus added");
+        	u_name=textField4.getText();
+        	pass=textField5.getText();
+        	user obj1=new user(u_name,pass);
+        	obj1.addDetails();
+        	JOptionPane.showMessageDialog(btnNewButton, "User created successfully.");
+        	Runtime.getRuntime().exit(1);
         	dispose();
         	setVisible(true);
 

@@ -25,8 +25,7 @@ public class interfacedes1 extends JFrame implements ActionListener{
 		getContentPane().add(label);
 		setBounds(600, 200, 600, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
-		new boxlayout();
+
 		   
 		adminBtn = new JButton("ADMIN");
 		userBtn = new JButton("USER");
